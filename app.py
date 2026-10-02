@@ -1,5 +1,24 @@
 import streamlit as st
 import sqlite3
+def buat_tabel_database():
+    koneksi = sqlite3.connect("database.db")
+    cursor = koneksi.cursor()
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS data_siswa (
+            no INTEGER PRIMARY KEY AUTOINCREMENT,
+            nama TEXT NOT NULL,
+            kelas TEXT NOT NULL,
+            nilai_tugas INTEGER,
+            waktu_pengerjaan TEXT,
+            perasaan TEXT
+        )
+    """)
+
+    koneksi.commit()
+    koneksi.close()
+
+buat_tabel_database()
 from datetime import datetime
 import pandas as pd
 
