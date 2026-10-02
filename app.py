@@ -489,7 +489,7 @@ def halaman_login_siswa():
 
         if st.button("🌷 Masuk ke Pembelajaran", key="tombol_login_siswa"):
 
-            if username == st.secrets["USERNAME"] and password == st.secrets["PASSWORD"]:
+            if username.strip() == st.secrets["USERNAME"].strip() and password.strip() == st.secrets["PASSWORD"].strip():
 
                 st.session_state.login = True
                 st.session_state.login_guru = False
