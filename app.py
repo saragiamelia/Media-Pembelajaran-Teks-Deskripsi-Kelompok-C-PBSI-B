@@ -1,5 +1,6 @@
 import streamlit as st
 import sqlite3
+import os
 def buat_tabel_database():
     koneksi = sqlite3.connect("database.db")
     cursor = koneksi.cursor()
@@ -443,6 +444,31 @@ def halaman_login():
             st.session_state.halaman = "login_guru"
             st.rerun()
 
+    st.write("")
+st.subheader("📖 Buku Panduan Penggunaan Media")
+st.write(
+    "Sebelum menggunakan media pembelajaran, siswa dan guru "
+    "dapat mengunduh buku panduan berikut."
+)
+
+nama_pdf = "BUKU_PANDUAN_PENGGUNAAN_MEDIA_DIGITAL_UNTUK_SISWA_DAN_GURU.pdf"
+
+if os.path.exists(nama_pdf):
+    with open(nama_pdf, "rb") as file_pdf:
+        pdf_bytes = file_pdf.read()
+
+    st.download_button(
+        label="📖 Unduh Buku Panduan",
+        data=pdf_bytes,
+        file_name=nama_pdf,
+        mime="application/pdf",
+        key="download_buku_panduan"
+    )
+else:
+    st.warning(
+        "Buku panduan belum tersedia. "
+        "Pastikan file PDF berada di folder yang sama dengan app.py."
+    )
     st.write("")
     st.write("🌼 Belajar dengan membaca, mengamati, mencoba, dan berefleksi. 🌼")
 
@@ -1310,13 +1336,13 @@ def halaman_tugas():
     st.write("6. Periksa kembali jawaban sebelum mengirimkan.")
 
     st.subheader("🔑 Kode Tugas")
-    st.success("52374125")
+    st.success("64973981")
 
     st.subheader("🌐 Buka Tugas di Wayground")
 
     st.link_button(
         "📝 Buka Tugas Wayground",
-        "https://wayground.com/join?gc=52374125&source=liveDashboard"
+        "https://wayground.com/join?gc=64973981&source=liveDashboard"
     )
 
     st.warning(
@@ -1376,8 +1402,48 @@ def halaman_tugas():
         )
 
     st.success(
-        "✨ Setelah menyelesaikan tugas, buka menu Rubrik "
-        "untuk melihat kategori nilai."
+        "✨ Setelah menyelesaikan tugas pilihan ganda, lanjutkan "
+        "ke tugas menulis teks deskripsi."
+    )
+
+    st.write("")
+    st.divider()
+
+    st.title("✍️ Tugas Menulis Teks Deskripsi")
+    st.info(
+        "Pada tugas ini, kamu akan menulis satu teks deskripsi "
+        "berdasarkan objek yang kamu pilih. Gunakan materi yang "
+        "sudah dipelajari sebagai panduan."
+    )
+
+    st.subheader("🎯 Petunjuk Tugas Menulis")
+    st.write("1. Pilih satu objek yang ingin kamu deskripsikan.")
+    st.write("2. Amati objek dan catat ciri-ciri yang kamu temukan.")
+    st.write("3. Susun teks dengan struktur identifikasi, deskripsi bagian, dan simpulan/kesan.")
+    st.write("4. Gunakan kata sifat, kata khusus, kalimat konkret, kalimat perincian, dan pancaindra.")
+    st.write("5. Periksa kembali ejaan, tanda baca, pilihan kata, dan keterpaduan paragraf.")
+    st.write("6. Kirim tulisan melalui tugas Wayground.")
+
+    st.subheader("🔑 Kode Tugas Menulis")
+    st.success("53845149")
+
+    st.subheader("🌐 Buka Tugas Menulis di Wayground")
+    st.link_button(
+        "✍️ Buka Tugas Menulis",
+        "https://wayground.com/join?gc=53845149&source=liveDashboard"
+    )
+
+    st.warning(
+        "📌 Setelah selesai menulis, pastikan tulisanmu sudah diperiksa "
+        "kembali sebelum dikumpulkan."
+    )
+
+    st.subheader("📊 Cara Penilaian")
+    st.write(
+        "Tugas menulis dinilai menggunakan 5 indikator. Setiap indikator "
+        "memiliki skor maksimal 4, sehingga skor maksimal adalah 20. "
+        "Nilai akhir dapat dikonversi ke skala 100 dengan rumus: "
+        "(Total Skor ÷ 20) × 100."
     )
 
     if st.button("🏠 Kembali ke Beranda", key="back_tugas"):
@@ -1400,41 +1466,23 @@ def halaman_rubrik():
     )
 
     st.write("🌸 💜 🌷 ✿ 🌼 💜 🌸")
-    st.title("📊 Rubrik Penilaian Tugas")
-
+    st.title("📊 Rubrik Penilaian")
     st.info(
-        "Rubrik berikut disesuaikan dengan tugas pilihan ganda "
-        "yang terdiri dari 20 soal."
+        "Halaman ini berisi pedoman penilaian untuk tugas pilihan ganda "
+        "dan tugas menulis teks deskripsi."
     )
 
-    st.subheader("📝 Ketentuan Penilaian")
+    st.header("📝 A. Rubrik Tugas Pilihan Ganda")
     st.write("• Jumlah soal: 20 soal")
     st.write("• Bentuk soal: Pilihan Ganda")
     st.write("• Nilai setiap soal: 5 poin")
     st.write("• Nilai maksimal: 100")
     st.write("• Rumus: Jumlah Benar × 5")
 
-    st.subheader("🌷 Kriteria Nilai")
-
     data_rubrik = {
-        "Jumlah Benar": [
-            "18–20 soal",
-            "15–17 soal",
-            "12–14 soal",
-            "0–11 soal"
-        ],
-        "Rentang Nilai": [
-            "90–100",
-            "75–85",
-            "60–70",
-            "0–55"
-        ],
-        "Kategori": [
-            "Sangat Baik",
-            "Baik",
-            "Cukup",
-            "Perlu Bimbingan"
-        ],
+        "Jumlah Benar": ["18–20 soal", "15–17 soal", "12–14 soal", "0–11 soal"],
+        "Rentang Nilai": ["90–100", "75–85", "60–70", "0–55"],
+        "Kategori": ["Sangat Baik", "Baik", "Cukup", "Perlu Bimbingan"],
         "Keterangan": [
             "Pemahaman materi sangat baik.",
             "Pemahaman materi sudah baik.",
@@ -1442,7 +1490,6 @@ def halaman_rubrik():
             "Memerlukan pembelajaran dan pendampingan lebih lanjut."
         ]
     }
-
     st.table(data_rubrik)
 
     st.subheader("🌼 Contoh Perhitungan")
@@ -1452,9 +1499,66 @@ def halaman_rubrik():
     st.write("14 benar → 14 × 5 = 70")
     st.write("10 benar → 10 × 5 = 50")
 
+    st.header("✍️ B. Rubrik Tugas Menulis Teks Deskripsi")
+    st.info(
+        "Tugas menulis dinilai menggunakan 5 indikator. Setiap indikator "
+        "memiliki skor 1–4. Skor maksimal adalah 20."
+    )
+
+    rubrik_menulis = {
+        "Indikator": [
+            "1. Struktur teks",
+            "2. Isi dan kelengkapan deskripsi",
+            "3. Pilihan kata dan unsur kebahasaan",
+            "4. Organisasi dan keterpaduan",
+            "5. Ejaan dan tanda baca"
+        ],
+        "Skor 4 — Sangat Baik": [
+            "Identifikasi, deskripsi bagian, dan simpulan/kesan lengkap serta tersusun tepat.",
+            "Objek digambarkan sangat jelas, rinci, spesifik, dan didukung banyak detail.",
+            "Pilihan kata tepat dan variatif; kata sifat, kata khusus, pancaindra, serta kalimat konkret digunakan dengan baik.",
+            "Paragraf runtut, saling terhubung, dan gagasan mudah diikuti.",
+            "Ejaan, huruf kapital, tanda baca, dan penulisan kata hampir seluruhnya tepat."
+        ],
+        "Skor 3 — Baik": [
+            "Struktur teks lengkap, tetapi masih ada bagian yang kurang kuat.",
+            "Deskripsi cukup jelas dan rinci, tetapi beberapa detail masih dapat ditambahkan.",
+            "Pilihan kata cukup tepat; sebagian besar unsur kebahasaan digunakan dengan baik.",
+            "Urutan gagasan cukup runtut dan hubungan antarparagraf cukup jelas.",
+            "Terdapat beberapa kesalahan ejaan atau tanda baca, tetapi tidak mengganggu pemahaman."
+        ],
+        "Skor 2 — Cukup": [
+            "Ada bagian struktur yang kurang lengkap atau kurang jelas.",
+            "Deskripsi masih umum dan detail yang diberikan terbatas.",
+            "Pilihan kata masih sederhana dan penggunaan unsur kebahasaan belum konsisten.",
+            "Urutan gagasan kurang runtut dan beberapa bagian terasa kurang terhubung.",
+            "Kesalahan ejaan, huruf kapital, atau tanda baca cukup sering ditemukan."
+        ],
+        "Skor 1 — Perlu Bimbingan": [
+            "Struktur teks tidak lengkap dan susunannya belum jelas.",
+            "Deskripsi sangat terbatas sehingga objek sulit dibayangkan.",
+            "Pilihan kata kurang tepat dan unsur kebahasaan belum digunakan dengan baik.",
+            "Gagasan tidak runtut dan hubungan antarbagian sulit dipahami.",
+            "Kesalahan ejaan dan tanda baca sangat sering sehingga mengganggu pemahaman."
+        ]
+    }
+    st.table(rubrik_menulis)
+
+    st.subheader("🌷 Rekap Skor Tugas Menulis")
+    st.write("• Jumlah indikator: 5")
+    st.write("• Skor setiap indikator: 1–4")
+    st.write("• Skor maksimal: 20")
+    st.write("• Nilai akhir = (Total Skor ÷ 20) × 100")
+
+    st.subheader("🌸 Contoh Perhitungan")
+    st.write("Skor 20 → Nilai 100 → Sangat Baik")
+    st.write("Skor 16 → Nilai 80 → Baik")
+    st.write("Skor 12 → Nilai 60 → Cukup")
+    st.write("Skor 8 → Nilai 40 → Perlu Bimbingan")
+
     st.success(
-        "💡 Rubrik ini membantu siswa memahami hubungan antara "
-        "jumlah jawaban benar dengan nilai tugas."
+        "💡 Gunakan rubrik ini sebagai panduan agar kamu mengetahui "
+        "bagian-bagian yang perlu diperhatikan saat menulis teks deskripsi."
     )
 
     if st.button("🏠 Kembali ke Beranda", key="back_rubrik"):
